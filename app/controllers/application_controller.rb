@@ -12,11 +12,12 @@ class ApplicationController < Sinatra::Base
 
   post '/login' do
      @user = User.find_by(usernanme: params[:username], password: params[:password])
-      sessions[:id] = @user.id 
 
+    if @user
+      sessions[:id] = @user.id
       redirect to '/account'
-
-      erb :account 
+    else
+      erb :error 
   end
 
   get '/account' do
@@ -29,4 +30,3 @@ class ApplicationController < Sinatra::Base
 
 
 end
-
